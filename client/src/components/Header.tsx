@@ -1,11 +1,13 @@
-import { Building2, Menu, Moon, Search, Sun } from "lucide-react";
+import { Building2, Menu, Moon, Sun, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { useState, useEffect } from "react";
+import { useAuth } from "@/hooks/useAuth";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function Header() {
   const [darkMode, setDarkMode] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user, isAuthenticated, isAdmin } = useAuth();
 
   useEffect(() => {
     if (darkMode) {
@@ -14,6 +16,14 @@ export default function Header() {
       document.documentElement.classList.remove("dark");
     }
   }, [darkMode]);
+
+  const handleLogin = () => {
+    window.location.href = "/api/login";
+  };
+
+  const handleLogout = () => {
+    window.location.href = "/api/logout";
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
@@ -31,7 +41,11 @@ export default function Header() {
             <Button variant="ghost" size="sm" data-testid="button-home">الرئيسية</Button>
             <Button variant="ghost" size="sm" data-testid="button-factories">المصانع</Button>
             <Button variant="ghost" size="sm" data-testid="button-categories">القطاعات</Button>
-            <Button variant="ghost" size="sm" data-testid="button-about">من نحن</Button>
+            {isAdmin && (
+              <Button variant="ghost" size="sm" data-testid="button-admin">
+                لوحة الإدارة
+              </Button>
+            )}
           </nav>
 
           <div className="flex items-center gap-2">
@@ -44,9 +58,35 @@ export default function Header() {
               {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
             
-            <Button variant="default" size="sm" className="hidden sm:inline-flex" data-testid="button-login">
-              تسجيل الدخول
-            </Button>
+            {isAuthenticated ? (
+              <div className="hidden sm:flex items-center gap-2">
+                <Avatar className="h-8 w-8" data-testid="avatar-user">
+                  <AvatarImage src={user?.profileImageUrl || undefined} />
+                  <AvatarFallback>
+                    {user?.firstName?.[0] || user?.email?.[0] || "U"}
+                  </AvatarFallback>
+                </Avatar>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={handleLogout}
+                  data-testid="button-logout"
+                >
+                  <LogOut className="h-4 w-4 ml-2" />
+                  خروج
+                </Button>
+              </div>
+            ) : (
+              <Button 
+                variant="default" 
+                size="sm" 
+                className="hidden sm:inline-flex" 
+                onClick={handleLogin}
+                data-testid="button-login"
+              >
+                تسجيل الدخول
+              </Button>
+            )}
 
             <Button
               variant="ghost"
@@ -66,8 +106,31 @@ export default function Header() {
               <Button variant="ghost" className="justify-start" data-testid="button-mobile-home">الرئيسية</Button>
               <Button variant="ghost" className="justify-start" data-testid="button-mobile-factories">المصانع</Button>
               <Button variant="ghost" className="justify-start" data-testid="button-mobile-categories">القطاعات</Button>
-              <Button variant="ghost" className="justify-start" data-testid="button-mobile-about">من نحن</Button>
-              <Button variant="default" className="justify-start mt-2" data-testid="button-mobile-login">تسجيل الدخول</Button>
+              {isAdmin && (
+                <Button variant="ghost" className="justify-start" data-testid="button-mobile-admin">
+                  لوحة الإدارة
+                </Button>
+              )}
+              {isAuthenticated ? (
+                <Button 
+                  variant="ghost" 
+                  className="justify-start mt-2" 
+                  onClick={handleLogout}
+                  data-testid="button-mobile-logout"
+                >
+                  <LogOut className="h-4 w-4 ml-2" />
+                  خروج
+                </Button>
+              ) : (
+                <Button 
+                  variant="default" 
+                  className="justify-start mt-2" 
+                  onClick={handleLogin}
+                  data-testid="button-mobile-login"
+                >
+                  تسجيل الدخول
+                </Button>
+              )}
             </nav>
           </div>
         )}

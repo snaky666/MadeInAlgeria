@@ -13,7 +13,7 @@ export default function Footer() {
               <img 
                 src="/logo.jpg" 
                 alt="Made in Algeria Logo" 
-                className="h-10 w-10 object-contain" 
+                className="h-10 w-10 object-contain mix-blend-lighten" 
               />
               <h3 className="font-bold text-lg" data-testid="text-footer-logo">Made in Algeria</h3>
             </div>

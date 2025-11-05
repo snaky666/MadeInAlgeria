@@ -33,7 +33,7 @@ export default function Header() {
             <img 
               src="/logo.jpg" 
               alt="Made in Algeria Logo" 
-              className="h-12 w-12 object-contain mix-blend-lighten" 
+              className="h-12 w-12 object-contain" 
               data-testid="logo-icon" 
             />
             <div className="hidden sm:block">

@@ -1,4 +1,4 @@
-import { Building2, Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { SiFacebook, SiInstagram, SiLinkedin } from "react-icons/si";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,7 +10,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <Building2 className="h-6 w-6 text-primary" />
+              <img 
+                src="/logo.jpg" 
+                alt="Made in Algeria Logo" 
+                className="h-10 w-10 object-contain" 
+              />
               <h3 className="font-bold text-lg" data-testid="text-footer-logo">Made in Algeria</h3>
             </div>
             <p className="text-sm text-muted-foreground mb-4" data-testid="text-footer-description">

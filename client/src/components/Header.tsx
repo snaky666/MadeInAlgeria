@@ -1,4 +1,4 @@
-import { Building2, Menu, Moon, Sun, LogOut } from "lucide-react";
+import { Menu, Moon, Sun, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
@@ -30,7 +30,12 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-4">
           <div className="flex items-center gap-3">
-            <Building2 className="h-8 w-8 text-primary" data-testid="logo-icon" />
+            <img 
+              src="/logo.jpg" 
+              alt="Made in Algeria Logo" 
+              className="h-12 w-12 object-contain" 
+              data-testid="logo-icon" 
+            />
             <div className="hidden sm:block">
               <h1 className="text-xl font-bold text-foreground" data-testid="text-logo">Made in Algeria</h1>
               <p className="text-xs text-muted-foreground">صنع في الجزائر</p>
